@@ -42,6 +42,8 @@ export interface ITelemetryService {
 
 	getTelemetryInfo(): TPromise<ITelemetryInfo>;
 
+	isFirstSession(): TPromise<boolean>;
+
 	isOptedIn: boolean;
 
 	getExperiments(): ITelemetryExperiments;
@@ -65,6 +67,9 @@ export const NullTelemetryService = {
 			sessionId: 'someValue.sessionId',
 			machineId: 'someValue.machineId'
 		});
+	},
+	isFirstSession(): TPromise<boolean> {
+		return TPromise.as(false);
 	},
 	getExperiments(): ITelemetryExperiments {
 		return this._experiments;

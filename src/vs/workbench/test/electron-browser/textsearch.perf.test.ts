@@ -167,6 +167,10 @@ class TestTelemetryService implements ITelemetryService {
 		});
 	}
 
+	public isFirstSession(): TPromise<boolean> {
+		return TPromise.as(false);
+	}
+
 	public getExperiments(): ITelemetryExperiments {
 		return defaultExperiments;
 	}

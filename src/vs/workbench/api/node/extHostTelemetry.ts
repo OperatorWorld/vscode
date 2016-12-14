@@ -48,4 +48,8 @@ export class RemoteTelemetryService implements ITelemetryService {
 	addTelemetryAppender(): any {
 		throw notImplemented();
 	}
+
+	isFirstSession(): TPromise<boolean> {
+		throw notImplemented();
+	}
 }

@@ -95,6 +95,10 @@ export class TelemetryService implements ITelemetryService {
 		});
 	}
 
+	isFirstSession(): TPromise<boolean> {
+		return this._commonProperties.then(values => !values['common.lastSessionDate']);
+	}
+
 	dispose(): void {
 		this._disposables = dispose(this._disposables);
 	}
