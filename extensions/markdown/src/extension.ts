@@ -54,6 +54,9 @@ export function activate(context: vscode.ExtensionContext) {
 			}
 		});
 	});
+
+	const uri = vscode.Uri.file(require.resolve('./welcome/welcome.md').toString());
+	return showPreview(uri, false, false, "Welcome"); // TODO: NLS
 }
 
 function isMarkdownFile(document: vscode.TextDocument) {
@@ -65,7 +68,7 @@ function getMarkdownUri(uri: vscode.Uri) {
 	return uri.with({ scheme: 'markdown', path: uri.path + '.rendered', query: uri.toString() });
 }
 
-function showPreview(uri?: vscode.Uri, sideBySide: boolean = false) {
+function showPreview(uri?: vscode.Uri, sideBySide: boolean = false, sandboxedPreview = true, title?: string) {
 
 	let resource = uri;
 	if (!(resource instanceof vscode.Uri)) {
@@ -84,10 +87,10 @@ function showPreview(uri?: vscode.Uri, sideBySide: boolean = false) {
 		return;
 	}
 
-	let thenable = vscode.commands.executeCommand('vscode.previewHtml',
+	let thenable = vscode.commands.executeCommand(sandboxedPreview ? 'vscode.previewHtml' : 'vscode.renderHtml',
 		getMarkdownUri(resource),
 		getViewColumn(sideBySide),
-		`Preview '${path.basename(resource.fsPath)}'`);
+		title || `Preview '${path.basename(resource.fsPath)}'`);
 
 	if (telemetryReporter) {
 		telemetryReporter.sendTelemetryEvent('openPreview', {

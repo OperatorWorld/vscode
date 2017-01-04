@@ -183,6 +183,14 @@ export class ExtHostApiCommands {
 				]
 			});
 
+		// TBD: remove or sanitize contents
+		this._register('vscode.renderHtml', (uri: URI, position?: vscode.ViewColumn, label?: string) => {
+			return this._commands.executeCommand('_workbench.renderHtml',
+				uri,
+				typeof position === 'number' && typeConverters.fromViewColumn(position),
+				label);
+		});
+
 		this._register('vscode.openFolder', (uri?: URI, forceNewWindow?: boolean) => {
 			if (!uri) {
 				return this._commands.executeCommand('_files.openFolderPicker', forceNewWindow);

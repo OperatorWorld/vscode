@@ -13,6 +13,7 @@
 		"Languages"
 	],
 	"activationEvents": [
+    "*",
 		"onCommand:markdown.showPreview",
 		"onCommand:markdown.showPreviewToSide",
 		"onCommand:markdown.showSource"
